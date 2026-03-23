@@ -44,29 +44,29 @@ python -m pip install --user pipx
 python -m pipx ensurepath
 
 # GitHubから直接インストール
-pipx install git+https://github.com/your-username/watsonx-data-mcp-proxy.git
+pipx install git+https://github.com/kyokonishito/watsonx_data_mcp_proxy.git
 
 # 特定のブランチやタグからインストール
-pipx install git+https://github.com/your-username/watsonx-data-mcp-proxy.git@main
-pipx install git+https://github.com/your-username/watsonx-data-mcp-proxy.git@v0.1.0
+pipx install git+https://github.com/kyokonishito/watsonx_data_mcp_proxy.git@main
+pipx install git+https://github.com/kyokonishito/watsonx_data_mcp_proxy.git@v0.1.0
 ```
 
 #### 方法2: pipでGitHubから直接インストール
 
 ```bash
 # GitHubから直接インストール
-pip install git+https://github.com/your-username/watsonx-data-mcp-proxy.git
+pip install git+https://github.com/kyokonishito/watsonx_data_mcp_proxy.git
 
 # または、ユーザーディレクトリにインストール
-pip install --user git+https://github.com/your-username/watsonx-data-mcp-proxy.git
+pip install --user git+https://github.com/kyokonishito/watsonx_data_mcp_proxy.git
 ```
 
 #### 方法3: ローカル開発用（開発者向け）
 
 ```bash
 # リポジトリをクローン
-git clone https://github.com/your-username/watsonx-data-mcp-proxy.git
-cd watsonx-data-mcp-proxy
+git clone https://github.com/kyokonishito/watsonx_data_mcp_proxy.git
+cd watsonx_data_mcp_proxy
 
 # uvで仮想環境を作成（推奨）
 uv venv
