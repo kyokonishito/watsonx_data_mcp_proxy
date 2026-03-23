@@ -90,6 +90,30 @@ watsonx-data-mcp-proxy --help
 python -m watsonx_data_mcp_proxy --help
 ```
 
+### アンインストール
+
+#### pipxでインストールした場合
+
+```bash
+pipx uninstall watsonx-data-mcp-proxy
+```
+
+#### pipでインストールした場合
+
+```bash
+pip uninstall watsonx-data-mcp-proxy
+```
+
+#### ローカル開発環境の場合
+
+```bash
+# 開発モードでインストールした場合
+pip uninstall watsonx-data-mcp-proxy
+
+# または、仮想環境ごと削除
+rm -rf .venv
+```
+
 ## 使用方法
 
 ### IBM Bob (MCP Client)での設定
