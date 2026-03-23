@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "watsonx-data-premium": {
+      "command": "watsonx-data-mcp-proxy",
+      "env": {
+        "IBM_CLOUD_API_KEY": "your-ibm-cloud-api-key-here",
+        "WATSONX_DATA_URL": "https://your-instance.lakehouse.saas.ibm.com/api/v2/mcp/"
+      }
+    }
+  }
+}
