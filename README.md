@@ -1,3 +1,7 @@
+> [!NOTE]
+> まだテスト中です！
+
+
 # watsonx.data MCP Proxy
 
 IBM watsonx.data Premium用のMCPプロキシサーバー。[IBM watsonx.data remote Model Context Protocol (MCP) server](https://www.ibm.com/docs/en/watsonxdata/premium/2.3.x?topic=agents-watsonxdata-remote-model-context-protocol-mcp-server)に接続し、IBM Cloud APIキーからアクセストークンを自動的に取得・更新してリクエストを中継します。
