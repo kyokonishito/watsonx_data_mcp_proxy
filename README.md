@@ -257,7 +257,13 @@ pytest --cov=src/watsonx_data_mcp_proxy --cov-report=html
 pytest tests/test_token_manager.py
 
 # 統合テストを実行（実際のwatsonx.dataに接続）
-pytest tests/test_integration.py -v
+# 環境変数を設定して実行
+export IBM_CLOUD_API_KEY="your-ibm-cloud-api-key"
+export WATSONX_DATA_URL="https://your-instance.lakehouse.saas.ibm.com/api/v2/mcp/"
+pytest tests/test_integration.py -v -m integration
+
+# または、uv仮想環境を使用する場合
+IBM_CLOUD_API_KEY="your-api-key" WATSONX_DATA_URL="https://your-instance.lakehouse.saas.ibm.com/api/v2/mcp/" uv run pytest tests/test_integration.py -v -m integration
 ```
 
 ### テストの種類
