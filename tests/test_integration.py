@@ -4,6 +4,9 @@
 注意: このテストを実行するには、以下の環境変数が必要です：
 - IBM_CLOUD_API_KEY: IBM Cloud APIキー
 - WATSONX_DATA_URL: watsonx.data MCPエンドポイントURL
+- WATSONX_DATA_CONTAINER_ID: watsonx.dataのコンテナID（オプション、LIST_DATA_ASSETSテスト用）
+- WATSONX_DATA_PRESTO_CRN: PrestoインスタンスのCRN（オプション、LIST_DATA_ASSETSテスト用）
+- WATSONX_DATA_PRESTO_ENGINE_ID: PrestoエンジンID（オプション、LIST_DATA_ASSETSテスト用）
 
 実行方法:
     pytest tests/test_integration.py -v -s
@@ -221,6 +224,65 @@ async def test_concurrent_requests(api_key, watsonx_data_url):
         
     except Exception as e:
         print(f"\n✗ 同時リクエストエラー: {e}")
+        raise
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_list_data_assets(api_key, watsonx_data_url):
+    """LIST_DATA_ASSETSツールのテスト
+    
+    注意: このテストを実行するには、以下の環境変数が必要です：
+    - WATSONX_DATA_CONTAINER_ID: コンテナID
+    - WATSONX_DATA_PRESTO_CRN: PrestoインスタンスのCRN
+    - WATSONX_DATA_PRESTO_ENGINE_ID: PrestoエンジンID
+    
+    これらが設定されていない場合、テストはスキップされます。
+    """
+    # 必要な環境変数を取得
+    container_id = os.getenv("WATSONX_DATA_CONTAINER_ID")
+    presto_crn = os.getenv("WATSONX_DATA_PRESTO_CRN")
+    presto_engine_id = os.getenv("WATSONX_DATA_PRESTO_ENGINE_ID")
+    
+    # 環境変数が設定されていない場合はスキップ
+    if not all([container_id, presto_crn, presto_engine_id]):
+        pytest.skip(
+            "LIST_DATA_ASSETSテストに必要な環境変数が設定されていません。\n"
+            "必要な環境変数: WATSONX_DATA_CONTAINER_ID, WATSONX_DATA_PRESTO_CRN, WATSONX_DATA_PRESTO_ENGINE_ID"
+        )
+    
+    proxy = WatsonxDataMCPProxy(
+        api_key=api_key,
+        watsonx_data_url=watsonx_data_url
+    )
+
+    # トークンを取得
+    token = await proxy.token_manager.get_token()
+    
+    try:
+        # データアセットのリストを取得
+        result = await proxy._forward_request(
+            tool_name="LIST_DATA_ASSETS",
+            arguments={
+                "container_type": "project",
+                "container_id": container_id,
+                "presto_instance_crn": presto_crn,
+                "presto_engine_id": presto_engine_id
+            },
+            token=token
+        )
+        
+        print(f"\n✓ LIST_DATA_ASSETS成功")
+        print(f"  結果: {result}")
+        
+        # 結果が返されることを確認
+        assert result is not None
+        
+    except Exception as e:
+        print(f"\n✗ LIST_DATA_ASSETSエラー: {e}")
+        # 権限エラーの場合はスキップ
+        if "403" in str(e) or "Forbidden" in str(e):
+            pytest.skip(f"権限エラーのためスキップ: {e}")
         raise
 
 

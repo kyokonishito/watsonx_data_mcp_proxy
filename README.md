@@ -268,6 +268,12 @@ pytest tests/test_integration.py -v -m integration
 
 # または、uv仮想環境を使用する場合
 IBM_CLOUD_API_KEY="your-api-key" WATSONX_DATA_URL="https://your-instance.lakehouse.saas.ibm.com/api/v2/mcp/" uv run pytest tests/test_integration.py -v -m integration
+
+# LIST_DATA_ASSETSテストを実行する場合（追加の環境変数が必要）
+export WATSONX_DATA_CONTAINER_ID="your-container-id"
+export WATSONX_DATA_PRESTO_CRN="your-presto-instance-crn"
+export WATSONX_DATA_PRESTO_ENGINE_ID="your-presto-engine-id"
+pytest tests/test_integration.py::test_list_data_assets -v -s
 ```
 
 ### テストの種類
